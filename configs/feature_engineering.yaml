@@ -7,5 +7,6 @@ settings:
     
 parameters:
   author_full_names:
-    - Maxime Labonne
-    - Paul Iusztin
+    - Linda Jin
+    #- Maxime Labonne
+    #- Paul Iusztin

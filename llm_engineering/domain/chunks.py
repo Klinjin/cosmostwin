@@ -36,3 +36,10 @@ class RepositoryChunk(Chunk):
 
     class Config:
         category = DataCategory.REPOSITORIES
+
+
+class PDFChunk(Chunk):
+    file_path: str
+
+    class Config:
+        category = DataCategory.PDFS

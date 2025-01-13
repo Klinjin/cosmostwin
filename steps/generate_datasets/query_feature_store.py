@@ -11,6 +11,7 @@ from llm_engineering.domain.cleaned_documents import (
     CleanedDocument,
     CleanedPostDocument,
     CleanedRepositoryDocument,
+    CleanedPDFDocument,
 )
 
 
@@ -37,6 +38,9 @@ def fetch_all_data() -> dict[str, list[NoSQLBaseDocument]]:
             executor.submit(
                 __fetch_repositories,
             ): "repositories",
+            executor.submit(
+                __fetch_pdfs,
+            ): "pdfs",
         }
 
         results = {}
@@ -62,6 +66,10 @@ def __fetch_posts() -> list[CleanedDocument]:
 
 def __fetch_repositories() -> list[CleanedDocument]:
     return __fetch(CleanedRepositoryDocument)
+
+
+def __fetch_pdfs() -> list[CleanedDocument]:
+    return __fetch(CleanedPDFDocument)
 
 
 def __fetch(cleaned_document_type: type[CleanedDocument], limit: int = 1) -> list[CleanedDocument]:

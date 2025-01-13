@@ -8,7 +8,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "~3.11"
-zenml = { version = "0.67.0", extras = ["server"] }
+zenml = { version = "0.71.0", extras = ["server"] }
 pymongo = "^4.6.2"
 click = "^8.0.1"
 loguru = "^0.7.2"
@@ -67,6 +67,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poe.tasks]
 # Data pipelines
+run-digital-data-etl-linda = "poetry run python -m tools.run --run-etl --no-cache --etl-config-filename digital_data_etl_linda_jin.yaml"
 run-digital-data-etl-alex = "echo 'It is not supported anymore.'"
 run-digital-data-etl-maxime = "poetry run python -m tools.run --run-etl --no-cache --etl-config-filename digital_data_etl_maxime_labonne.yaml"
 run-digital-data-etl-paul = "poetry run python -m tools.run --run-etl --no-cache --etl-config-filename digital_data_etl_paul_iusztin.yaml"

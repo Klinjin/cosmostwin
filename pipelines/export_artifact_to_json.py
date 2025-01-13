@@ -7,7 +7,7 @@ from steps import export as export_steps
 
 
 @pipeline
-def export_artifact_to_json(artifact_names: list[str], output_dir: Path = Path("output")) -> None:
+def export_artifact_to_json(artifact_names: list[str], output_dir: Path = Path("data/artifacts")) -> None:
     for artifact_name in artifact_names:
         artifact = Client().get_artifact_version(name_id_or_prefix=artifact_name)
 

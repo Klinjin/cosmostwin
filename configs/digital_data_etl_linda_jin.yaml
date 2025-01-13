@@ -1,0 +1,20 @@
+settings:
+  docker:
+    parent_image: 992382797823.dkr.ecr.eu-central-1.amazonaws.com/zenml-rlwlcs:latest
+    skip_build: True
+  orchestrator.sagemaker:
+    synchronous: false
+    
+parameters:
+  user_full_name: Linda Jin # [First Name(s)] [Last Name]
+  links:
+    #PDFs
+    - "/Users/link/Desktop/cosmology/PHYS 236 cosmology/lecture/lecture1_overview.pdf"
+    - "/Users/link/Desktop/cosmology/PHYS 236 cosmology/lecture/lecture2_FRW.pdf"
+    - "/Users/link/Desktop/cosmology/PHYS 236 cosmology/lecture/lecture3_cosmic_dynamics.pdf" 
+    - "/Users/link/Desktop/cosmology/PHYS 236 cosmology/lecture/lecture4_distances.pdf"
+    - "/Users/link/Desktop/cosmology/PHYS 236 cosmology/lecture/lecture5-9_thermal_history-BBN.pdf"
+    - "/Users/link/Desktop/cosmology/PHYS 236 cosmology/lecture/lecture10_inflation.pdf"
+    - "/Users/link/Desktop/cosmology/PHYS 236 cosmology/lecture/lecture12-13_LSS.pdf"
+    - "/Users/link/Desktop/cosmology/PHYS 236 cosmology/lecture/lecture14_nonlinear_SF.pdf"
+    - "/Users/link/Desktop/cosmology/PHYS 236 cosmology/lecture/lecture15_CMB.pdf"

@@ -11,6 +11,7 @@ from llm_engineering.domain.embedded_chunks import (
     EmbeddedChunk,
     EmbeddedPostChunk,
     EmbeddedRepositoryChunk,
+    EmbeddedPDFChunk,
 )
 from llm_engineering.domain.queries import EmbeddedQuery, Query
 
@@ -91,8 +92,9 @@ class ContextRetriever:
         post_chunks = _search_data_category(EmbeddedPostChunk, embedded_query)
         articles_chunks = _search_data_category(EmbeddedArticleChunk, embedded_query)
         repositories_chunks = _search_data_category(EmbeddedRepositoryChunk, embedded_query)
+        pdf_chunks = _search_data_category(EmbeddedPDFChunk, embedded_query)
 
-        retrieved_chunks = post_chunks + articles_chunks + repositories_chunks
+        retrieved_chunks = post_chunks + articles_chunks + repositories_chunks + pdf_chunks
 
         return retrieved_chunks
 

@@ -98,7 +98,7 @@ def finetune(
 
             return {"text": text}
 
-        dataset1 = load_dataset(f"{dataset_huggingface_workspace}/llmtwin", split="train")
+        dataset1 = load_dataset(f"{dataset_huggingface_workspace}/cosmostwin", split="train")
         dataset2 = load_dataset("mlabonne/FineTome-Alpaca-100k", split="train[:10000]")
         dataset = concatenate_datasets([dataset1, dataset2])
         if is_dummy:
@@ -151,7 +151,7 @@ def finetune(
 
             return {"prompt": example["prompt"], "chosen": example["chosen"], "rejected": example["rejected"]}
 
-        dataset = load_dataset(f"{dataset_huggingface_workspace}/llmtwin-dpo", split="train")
+        dataset = load_dataset(f"{dataset_huggingface_workspace}/cosmostwin-dpo", split="train")
         if is_dummy:
             try:
                 dataset = dataset.select(range(400))
@@ -289,12 +289,12 @@ if __name__ == "__main__":
         )
         inference(model, tokenizer)
 
-        sft_output_model_repo_id = f"{args.model_output_huggingface_workspace}/TwinLlama-3.1-8B"
+        sft_output_model_repo_id = f"{args.model_output_huggingface_workspace}/CosmosTwinLlama-3.1-8B"
         save_model(model, tokenizer, "model_sft", push_to_hub=True, repo_id=sft_output_model_repo_id)
     elif args.finetuning_type == "dpo":
         print("Starting DPO training...")  # noqa
 
-        sft_base_model_repo_id = f"{args.model_output_huggingface_workspace}/TwinLlama-3.1-8B"
+        sft_base_model_repo_id = f"{args.model_output_huggingface_workspace}/CosmosTwinLlama-3.1-8B"
         sft_base_model_repo_id = check_if_huggingface_model_exists(sft_base_model_repo_id)
         print(f"Training from base model '{sft_base_model_repo_id}'")  # noqa
 
@@ -311,5 +311,5 @@ if __name__ == "__main__":
         )
         inference(model, tokenizer)
 
-        dpo_output_model_repo_id = f"{args.model_output_huggingface_workspace}/TwinLlama-3.1-8B-DPO"
+        dpo_output_model_repo_id = f"{args.model_output_huggingface_workspace}/CosmosTwinLlama-3.1-8B-DPO"
         save_model(model, tokenizer, "model_dpo", push_to_hub=True, repo_id=dpo_output_model_repo_id)

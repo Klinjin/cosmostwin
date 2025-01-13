@@ -3,12 +3,13 @@ from abc import ABC, abstractmethod
 from typing import Generic, TypeVar
 from uuid import UUID
 
-from llm_engineering.domain.chunks import ArticleChunk, Chunk, PostChunk, RepositoryChunk
+from llm_engineering.domain.chunks import ArticleChunk, Chunk, PostChunk, RepositoryChunk, PDFChunk
 from llm_engineering.domain.cleaned_documents import (
     CleanedArticleDocument,
     CleanedDocument,
     CleanedPostDocument,
     CleanedRepositoryDocument,
+    CleanedPDFDocument,
 )
 
 from .operations import chunk_article, chunk_text
@@ -91,6 +92,39 @@ class ArticleChunkingHandler(ChunkingDataHandler):
                 content=chunk,
                 platform=data_model.platform,
                 link=data_model.link,
+                document_id=data_model.id,
+                author_id=data_model.author_id,
+                author_full_name=data_model.author_full_name,
+                metadata=self.metadata,
+            )
+            data_models_list.append(model)
+
+        return data_models_list
+
+
+class PDFChunkingHandler(ChunkingDataHandler):
+    @property
+    def metadata(self) -> dict:
+        return {
+            "min_length": 1000,
+            "max_length": 2000,
+        }
+
+    def chunk(self, data_model: CleanedPDFDocument) -> list[PDFChunk]:
+        data_models_list = []
+
+        cleaned_content = data_model.content
+        chunks = chunk_article(
+            cleaned_content, min_length=self.metadata["min_length"], max_length=self.metadata["max_length"]
+        )
+
+        for chunk in chunks:
+            chunk_id = hashlib.md5(chunk.encode()).hexdigest()
+            model = PDFChunk(
+                id=UUID(chunk_id, version=4),
+                content=chunk,
+                platform=data_model.platform,
+                file_path=data_model.file_path,
                 document_id=data_model.id,
                 author_id=data_model.author_id,
                 author_full_name=data_model.author_full_name,

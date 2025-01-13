@@ -40,3 +40,12 @@ class CleanedRepositoryDocument(CleanedDocument):
         name = "cleaned_repositories"
         category = DataCategory.REPOSITORIES
         use_vector_index = False
+
+
+class CleanedPDFDocument(CleanedDocument):
+    file_path: str
+
+    class Config:
+        name = "cleaned_pdfs"
+        category = DataCategory.PDFS
+        use_vector_index = False

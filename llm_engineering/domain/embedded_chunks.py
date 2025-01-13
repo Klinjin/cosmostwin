@@ -47,6 +47,15 @@ class EmbeddedArticleChunk(EmbeddedChunk):
         use_vector_index = True
 
 
+class EmbeddedPDFChunk(EmbeddedChunk):
+    file_path: str
+
+    class Config:
+        name = "embedded_pdfs"
+        category = DataCategory.PDFS
+        use_vector_index = True
+
+
 class EmbeddedRepositoryChunk(EmbeddedChunk):
     name: str
     link: str

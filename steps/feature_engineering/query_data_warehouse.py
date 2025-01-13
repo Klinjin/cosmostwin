@@ -6,7 +6,14 @@ from zenml import get_step_context, step
 
 from llm_engineering.application import utils
 from llm_engineering.domain.base.nosql import NoSQLBaseDocument
-from llm_engineering.domain.documents import ArticleDocument, Document, PostDocument, RepositoryDocument, UserDocument
+from llm_engineering.domain.documents import (
+    ArticleDocument,
+    Document,
+    PostDocument,
+    RepositoryDocument,
+    UserDocument,
+    PDFDocument,
+)
 
 
 @step
@@ -41,6 +48,7 @@ def fetch_all_data(user: UserDocument) -> dict[str, list[NoSQLBaseDocument]]:
             executor.submit(__fetch_articles, user_id): "articles",
             executor.submit(__fetch_posts, user_id): "posts",
             executor.submit(__fetch_repositories, user_id): "repositories",
+            executor.submit(__fetch_pdfs, user_id): "pdfs",
         }
 
         results = {}
@@ -66,6 +74,10 @@ def __fetch_posts(user_id) -> list[NoSQLBaseDocument]:
 
 def __fetch_repositories(user_id) -> list[NoSQLBaseDocument]:
     return RepositoryDocument.bulk_find(author_id=user_id)
+
+
+def __fetch_pdfs(user_id) -> list[NoSQLBaseDocument]:
+    return PDFDocument.bulk_find(author_id=user_id)
 
 
 def _get_metadata(documents: list[Document]) -> dict:

@@ -174,14 +174,30 @@ class InstructionDatasetGenerator(DatasetGenerator):
 must ask to write about a specific topic contained in the context. Each answer \
 must provide a relevant paragraph based on the information found in the \
 context. Only use concepts from the context to generate the instructions. \
+Instructions must be self-contained and cover a wide range of cosmology topics  (e.g., dark matter, thermal history, Big Bang Nucleosynthesis, recombination, Electron-positron annihilation, Neutrino decoupling, QCD phase transition, Dark matter freeze-out, \
+    Electroweak phase transition, Baryogenesis and Leptogenesis , CMB, linear and non-linear cosmic structure formation, inflation, \
+        cosmological fields, gravitational effects, or particle physics) present in the extract. \
 Instructions must never explicitly mention a context, a system, a course, or an extract. \
-Instructions must be self-contained and general. \
 Answers must imitate the writing style of the context. \
-    
-Example instruction: Explain the concept of an LLM Twin. \
-Example answer: An LLM Twin is essentially an AI character that mimics your writing style, personality, and voice. \
-It's designed to write just like you by incorporating these elements into a language model. \
-The idea is to create a digital replica of your writing habits using advanced AI techniques. \
+Answer retains equations, symbols, and scientific notation exactly as presented in the extract.
+
+Example instruction: Explain Hubble Expansion. \
+Example answer: The first key observation in modern cosmology was the discovery of the expanding universe by Edwin Hubble. \
+    By 1929, he had obtained Cepheid distances for 24 galaxies with red-shifts and claimed that these displayed a linear relationship: v = Hd, where H is the Hubble constant. \
+    He cited theoretical predictions from relativistic cosmology that redshift or velocity should increase linearly with distance in an expanding Universe as a possible explanation. \
+    The Hubble constant is hence a measure of the rate of expansion of the universe. \
+    At the time, Hubble estimated\nH \u2243500 km s\u22121 Mpc\u22121, because his calibration of Cepheid luminosities was in error. \
+    The best modern value of the Hubble constant is close to 70 km s\u22121 Mpc\u22121.
+
+Example instruction: What's dark matter and its nature? \
+Example answer: Dark matter is a form of matter that is thought to account for approximately 26% of the universe's total energy density. \
+    It drives the structure formation via gravitational instability. \
+    The circular velocity curve of spiral galaxy M33 clearly shows the need for dark matter. \
+    The galaxy is embedded in a ‘dark matter halo’ that produces a flat rotation curve at large R, rather than decay. \
+    Hydrogen traces the distribution of dark matter in the cosmic web. Since dark matter is very weakly interacting with ordinary matter, we expect it to decouple relatively early on. \
+    The particle nature of dark matter still remains unknown, but the example of WIMPs – weakly interacting massive particles that freeze out around 10-100 GeV, which reproduces the observed relic dark matter density surprisingly well. \
+    The Planck satellite has made a percent-level measurement of the density in cold dark matter \u2326CDMh2 =0 .1200\u00b10.0012. \
+    Since dark matter dominates gravity and the expansion rate, and we are in an Einstein-de Sitter and matter-dominated universe, dark matter yields the growing solution \u03b4\u221da(t).
 
 Structure the answer in JSON format, ready to be loaded in Python by json.loads(), as a list of objects.
 Do not add any extra characters and provide your response in JSON format with the following structure:
@@ -209,16 +225,20 @@ class PreferenceDatasetGenerator(DatasetGenerator):
     dataset_type = DatasetType.PREFERENCE
 
     prompt_template_str = """Based on the following extract, generate five instruction-answer triples. Each triple should consist of:
-1. An instruction asking about a specific topic in the context.
-2. A generated answer that attempts to answer the instruction based on the context, named as 'rejected'.
-3. An extracted answer that is a relevant excerpt directly from the given context, named as 'chosen'.
+1. An instruction asking a specific astrophysics question that relates to concepts, phenomena, or equations mentioned in the context.
+2. A generated answer attempting to provide a detailed explanation for the instruction, named as 'rejected'. The rejected answer should demonstrate a plausible response but may include minor inaccuracies or lack of specificity.
+3. An extracted answer that is a verbatim copy of a relevant portion directly from the context, named as 'chosen'. Ensure the chosen answer retains equations, symbols, and scientific notation exactly as presented in the extract.
 
-Instructions must be self-contained and general, without explicitly mentioning a context, system, course, or extract.
-
+Instructions must be:
+- Self-contained and general, avoiding any direct mention of the context, system, course, or extract.
+- Focused on a wide range of astrophysical topics (e.g., dark matter, thermal history, Big Bang Nucleosynthesis, recombination, Electron-positron annihilation, Neutrino decoupling, QCD phase transition, Dark matter freeze-out, \
+    Electroweak phase transition, Baryogenesis and Leptogenesis , CMB, linear and non-linear cosmic structure formation, inflation, \
+        cosmological fields, gravitational effects, or particle physics) present in the extract. 
+        
 Important:
-- Ensure that the extracted answer, the chosen one, is a verbatim copy from the context, including all punctuation and apostrophes.
-- Do not add any ellipsis (...) or [...]  to indicate skipped text in the extracted answer.
-- If the relevant text is not continuous, use two separate sentences from the context instead of skipping text.
+- Ensure the extracted answer, the chosen one, is a word-for-word copy from the context, including equations, punctuation, and formatting.
+- If the relevant text is not continuous, include two separate sentences from the context without skipping text or adding ellipses (...).
+- Do not generate instructions or answers that require external information beyond the extract.
 
 Structure the answer in JSON format, ready to be loaded in Python by json.loads(), as a list of objects.
 Do not add any extra characters and provide your response in JSON format with the following structure:

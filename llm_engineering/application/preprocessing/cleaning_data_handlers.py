@@ -6,12 +6,14 @@ from llm_engineering.domain.cleaned_documents import (
     CleanedDocument,
     CleanedPostDocument,
     CleanedRepositoryDocument,
+    CleanedPDFDocument,
 )
 from llm_engineering.domain.documents import (
     ArticleDocument,
     Document,
     PostDocument,
     RepositoryDocument,
+    PDFDocument,
 )
 
 from .operations import clean_text
@@ -65,6 +67,20 @@ class RepositoryCleaningHandler(CleaningDataHandler):
             platform=data_model.platform,
             name=data_model.name,
             link=data_model.link,
+            author_id=data_model.author_id,
+            author_full_name=data_model.author_full_name,
+        )
+
+
+class PDFCleaningHandler(CleaningDataHandler):
+    def clean(self, data_model: PDFDocument) -> CleanedPDFDocument:
+        valid_content = [content for content in data_model.content.values() if content]
+
+        return CleanedPDFDocument(
+            id=data_model.id,
+            content=clean_text(" #### ".join(valid_content)),
+            platform=data_model.platform,
+            file_path=data_model.file_path,
             author_id=data_model.author_id,
             author_full_name=data_model.author_full_name,
         )

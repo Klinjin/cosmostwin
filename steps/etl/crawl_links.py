@@ -6,6 +6,7 @@ from typing_extensions import Annotated
 from zenml import get_step_context, step
 
 from llm_engineering.application.crawlers.dispatcher import CrawlerDispatcher
+from llm_engineering.application.crawlers.custom_pdf import CustomPdfCrawler
 from llm_engineering.domain.documents import UserDocument
 
 
@@ -32,6 +33,19 @@ def crawl_links(user: UserDocument, links: list[str]) -> Annotated[list[str], "c
 
 
 def _crawl_link(dispatcher: CrawlerDispatcher, link: str, user: UserDocument) -> tuple[bool, str]:
+    if link.endswith(".pdf"):
+        crawler = CustomPdfCrawler()
+        crawler_domain = "pdf"
+        try:
+            crawler.extract(file_path=link, user=user)
+
+            return (True, crawler_domain)
+        except Exception as e:
+            logger.error(f"An error occurred while crowling: {e!s}")
+
+            return (False, crawler_domain)
+        pass
+
     crawler = dispatcher.get_crawler(link)
     crawler_domain = urlparse(link).netloc
 
