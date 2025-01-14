@@ -204,7 +204,7 @@ def finetune(
 def inference(
     model: Any,
     tokenizer: Any,
-    prompt: str = "Write a paragraph to introduce supervised fine-tuning.",
+    prompt: str = "Write a paragraph to introduce the CMB anisotropies.",
     max_new_tokens: int = 256,
 ) -> None:
     model = FastLanguageModel.for_inference(model)

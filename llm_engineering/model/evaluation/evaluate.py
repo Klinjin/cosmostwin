@@ -55,17 +55,17 @@ def generate_answers(model_id: str, dataset_name: str):
 def evaluate_answer(instruction: str, answer: str, client: OpenAI) -> dict:
     prompt = f"""You are an expert judge. Please evaluate the quality of a given answer to an instruction based on two criteria:
 1. Accuracy: How factually correct is the information presented in the answer? You are a technical expert in this topic.
-2. Style: Is the tone and writing style appropriate for a blog post or social media content? It should use simple but technical words and avoid formal or academic language.
+2. Style: Is the tone and writing style appropriate for a educational and science popularization content? It should use simple but technical words and avoid complicated language.
 
 Accuracy scale:
 1 (Poor): Contains factual errors or misleading information
-2 (Good): Mostly accurate with minor errors or omissions
-3 (Excellent): Highly accurate and comprehensive
+2 (Good): Mostly accurate with minor numerical errors or omissions 
+3 (Excellent): Highly accurate and comprehensive with accurate equations
 
 Style scale:
 1 (Poor): Too formal, uses some overly complex words
-2 (Good): Good balance of technical content and accessibility, but still uses formal words and expressions
-3 (Excellent): Perfectly accessible language for blog/social media, uses simple but precise technical terms when necessary
+2 (Good): Good balance of technical content and accessibility, but still too wordy
+3 (Excellent): Perfectly accessible language for students, uses simple but precise technical terms when necessary
 
 Example of bad style: The Llama2 7B model constitutes a noteworthy progression in the field of artificial intelligence, serving as the successor to its predecessor, the original Llama architecture.
 Example of excellent style: Llama2 7B outperforms the original Llama model across multiple benchmarks.
@@ -197,11 +197,11 @@ def check_if_huggingface_dataset_exists(dataset_id: str, default_value: str) -> 
 
 model_ids = [
     check_if_huggingface_model_exists(
-        f"{MODEL_HUGGINGFACE_WORKSPACE}/TwinLlama-3.1-8B", default_value="mlabonne/TwinLlama-3.1-8B"
+        f"{MODEL_HUGGINGFACE_WORKSPACE}/CosmosTwinLlama-3.1-8B", default_value="Klin0604/CosmosTwinLlama-3.1-8B"
     ),
-    check_if_huggingface_model_exists(
-        f"{MODEL_HUGGINGFACE_WORKSPACE}/TwinLlama-3.1-8B-DPO", default_value="mlabonne/TwinLlama-3.1-8B-DPO"
-    ),
+    #check_if_huggingface_model_exists(
+    #    f"{MODEL_HUGGINGFACE_WORKSPACE}/CosmosTwinLlama-3.1-8B-DPO", default_value="Klin0604/CosmosTwinLlama-3.1-8B-DPO"
+    #),
     "meta-llama/Llama-3.1-8B-Instruct",
 ]
 
@@ -209,7 +209,7 @@ if __name__ == "__main__":
     # Run generation
     for model_id in model_ids:
         dataset_name = check_if_huggingface_dataset_exists(
-            f"{DATASET_HUGGINGFACE_WORKSPACE}/llmtwin", default_value="mlabonne/llmtwin"
+            f"{DATASET_HUGGINGFACE_WORKSPACE}/cosmostwin", default_value="Klin0604/cosmostwin"
         )
         generate_answers(model_id, dataset_name=dataset_name)
 

@@ -177,7 +177,9 @@ context. Only use concepts from the context to generate the instructions. \
 Instructions must be self-contained and cover a wide range of cosmology topics  (e.g., dark matter, thermal history, Big Bang Nucleosynthesis, recombination, Electron-positron annihilation, Neutrino decoupling, QCD phase transition, Dark matter freeze-out, \
     Electroweak phase transition, Baryogenesis and Leptogenesis , CMB, linear and non-linear cosmic structure formation, inflation, \
         cosmological fields, gravitational effects, or particle physics) present in the extract. \
-Instructions must never explicitly mention a context, a system, a course, or an extract. \
+Instructions must never explicitly mention a context or a course. \
+Instructions must be clear and concise, avoiding any ambiguity. \
+Instructions include asking about definitions, explanations, or equations. \
 Answers must imitate the writing style of the context. \
 Answer retains equations, symbols, and scientific notation exactly as presented in the extract.
 
@@ -189,18 +191,22 @@ Example answer: The first key observation in modern cosmology was the discovery 
     At the time, Hubble estimated\nH \u2243500 km s\u22121 Mpc\u22121, because his calibration of Cepheid luminosities was in error. \
     The best modern value of the Hubble constant is close to 70 km s\u22121 Mpc\u22121.
 
-Example instruction: What's dark matter and its nature? \
-Example answer: Dark matter is a form of matter that is thought to account for approximately 26% of the universe's total energy density. \
-    It drives the structure formation via gravitational instability. \
-    The circular velocity curve of spiral galaxy M33 clearly shows the need for dark matter. \
-    The galaxy is embedded in a ‘dark matter halo’ that produces a flat rotation curve at large R, rather than decay. \
-    Hydrogen traces the distribution of dark matter in the cosmic web. Since dark matter is very weakly interacting with ordinary matter, we expect it to decouple relatively early on. \
-    The particle nature of dark matter still remains unknown, but the example of WIMPs – weakly interacting massive particles that freeze out around 10-100 GeV, which reproduces the observed relic dark matter density surprisingly well. \
-    The Planck satellite has made a percent-level measurement of the density in cold dark matter \u2326CDMh2 =0 .1200\u00b10.0012. \
-    Since dark matter dominates gravity and the expansion rate, and we are in an Einstein-de Sitter and matter-dominated universe, dark matter yields the growing solution \u03b4\u221da(t).
+Example instruction: What's dark matter's growing mode? \
+Example answer: At early times, the dominant energy of radiation drives the universe to expand so fast that the collisionless matter, whose gravity is sub dominant, has no time to respond, and \u03b4 grows at most only logarithmically. \
+    The growing solution is \u03b4c t \u03b4c ti 1 Aln t ti , 75 12 thus only a solution with an initial velocity , \u03b4 ti 0, can actually grow so that A 0 , and only logarithmically at that. \
+    At late times, the radiation eventually becomes negligible. \
+    Since dark matter dominates gravity and the expansion rate, and we are in an Einstein-de Sitter (cosmological constant) and matter-dominated universe, dark matter yields the growing solution \u03b4\u221da(t). 
 
+Example instruction: What's The Robertson-Walker Metric? \
+Example answer: The Robertson-Walker metric or the Friedmann Robertson Walker metric is the metric of a homogeneous, isotropic, and expanding universe. \
+    It was shown in 1935 by Robertson Walker that the assumption of homogeneity and isotropy requires the metric to take the form, in spherical polar coordinates: \ 
+    ds^2 = -c^2dt^2 + a^2(t) [dr^2 + S_k^2(r)(dθ^2 + sin^2θ dφ^2)] = -c^2dt^2 + a^2(t) [dr^2 + S_k^2(r)dΩ^2] \
+    where a(t) is the scale factor, and k is the curvature constant of the universe that can be +1, 0, or -1. 
+    
 Structure the answer in JSON format, ready to be loaded in Python by json.loads(), as a list of objects.
-Do not add any extra characters and provide your response in JSON format with the following structure:
+For mathematical expressions, use plain text (e.g., KE = 0.5 * m * v^2).
+Everything must be valid json output for langchain_core.output_parsers.
+Provide your response in JSON format with the following structure:
 [
     {"instruction": "...", "answer": "..."},
     ...
