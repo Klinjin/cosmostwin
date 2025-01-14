@@ -40,7 +40,7 @@ To install and run the project locally, you need the following dependencies.
 |------|---------|---------|------------------|
 | pyenv | ≥2.3.36 | Multiple Python versions (optional) | [Install Guide](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation) |
 | Python | 3.11 | Runtime environment | [Download](https://www.python.org/downloads/) |
-| Poetry | ≥1.8.3 | Package management | [Install Guide](https://python-poetry.org/docs/#installation) |
+| Poetry | >= 1.8.3 and < 2.0 | Package management | [Install Guide](https://python-poetry.org/docs/#installation) |
 | Docker | ≥27.1.1 | Containerization | [Install Guide](https://docs.docker.com/engine/install/) |
 | AWS CLI | ≥2.15.42 | Cloud management | [Install Guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) |
 | Git | ≥2.44.0 | Version control | [Download](https://git-scm.com/downloads) |
@@ -52,8 +52,8 @@ The code also uses and depends on the following cloud services. For now, you don
 | Service | Purpose |
 |---------|---------|
 | [HuggingFace](https://huggingface.com/) | Model registry |
-| [Comet ML](https://www.comet.com/site/) | Experiment tracker |
-| [Opik](https://www.comet.com/site/products/opik/) | Prompt monitoring |
+| [Comet ML](https://www.comet.com/site/products/opik/?utm_source=llm_handbook&utm_medium=github&utm_campaign=opik) | Experiment tracker |
+| [Opik](https://www.comet.com/site/products/opik/?utm_source=llm_handbook&utm_medium=github&utm_campaign=opik) | Prompt monitoring |
 | [ZenML](https://www.zenml.io/) | Orchestrator and artifacts layer |
 | [AWS](https://aws.amazon.com/) | Compute and storage |
 | [MongoDB](https://www.mongodb.com/) | NoSQL database |
@@ -111,6 +111,9 @@ The code logic and imports flow as follows: `infrastructure` → `model` → `ap
 `code_snippets/`: Independent code examples that can be executed independently.
 
 ## 💻 Installation
+
+> [!NOTE]
+> If you are experiencing issues while installing and running the repository, consider checking the [Issues](https://github.com/PacktPublishing/LLM-Engineers-Handbook/issues) GitHub section for other people who solved similar problems or directly asking us for help.
 
 ### 1. Clone the Repository
 
@@ -269,7 +272,7 @@ To authenticate to Comet ML (required only during training) and Opik, you must f
 COMET_API_KEY=your_api_key_here
 ```
 
-→ Check out this [tutorial](https://www.comet.com/docs/v2/api-and-sdk/rest-api/overview/) to learn how to get the Comet ML variables from above. You can also access Opik's dashboard using 🔗[this link](https://www.comet.com/opik).
+→ Check out this [tutorial](https://www.comet.com/docs/opik/?utm_source=llm_handbook&utm_medium=github&utm_campaign=opik) to learn how to get started with Opik. You can also access Opik's dashboard using 🔗[this link](https://www.comet.com/opik?utm_source=llm_handbook&utm_medium=github&utm_content=opik).
 
 ### 6. Deployment Setup
 
@@ -466,8 +469,8 @@ Also, we provide instructions on how to set everything up in **Chapter 11**, sec
 #### Comet ML & Opik
 
 You can visualize the results on their self-hosted dashboards if you create a Comet account and correctly set the `COMET_API_KEY` env var. As Opik is powered by Comet, you don't have to set up anything else along Comet:
-- [Comet ML (for experiment tracking)](https://www.comet.com/)
-- [Opik (for prompt monitoring)](https://www.comet.com/opik)
+- [Comet ML (for experiment tracking)](https://www.comet.com/?utm_source=llm_handbook&utm_medium=github&utm_campaign=opik)
+- [Opik (for prompt monitoring)](https://www.comet.com/opik?utm_source=llm_handbook&utm_medium=github&utm_campaign=opik)
 
 ## ⚡ Pipelines
 
